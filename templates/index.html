@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemstone Predict</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fafafa;
+            color: #1f1f1f;
+            font-size: 16px;
+        }
+
+        .container {
+            position: relative;
+            width: 80%;
+            background-color: white;
+            border-radius: 15px;
+            filter: drop-shadow(0 0 2px rgba(151, 153, 155, .7));
+            height: 90vh;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+        }
+
+        .title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-sizing: border-box;
+
+
+        }
+
+        .rp {
+            padding: 15px 25px;
+        }
+
+        .bb {
+            border-bottom: 1px solid rgba(151, 153, 155, .3);
+        }
+
+        .wrapper {
+            position: relative;
+            padding: 15px 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .left-col {
+            position: relative;
+            width: 40%;
+            box-sizing: border-box;
+            padding: 0 25px;
+            border-right: 1px solid rgba(151, 153, 155, .3);
+            text-align: left;
+            height: 100%;
+        }
+
+        .right-col {
+            position: relative;
+            width: 60%;
+            box-sizing: border-box;
+            padding: 0 25px;
+            height: 100%;
+        }
+
+        #drop-zone {
+            border: 2px dashed #ccc;
+            border-radius: 20px;
+            width: 50%;
+            height: 200px;
+            margin-right: auto;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #777;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-image {
+            width: 50%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        #drop-zone.dragover {
+            border-color: #4CAF50;
+            background-color: #e8f5e9;
+        }
+
+        .mb-1 {
+            margin-bottom: 15px;
+        }
+
+        .mb-2 {
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            color: white;
+            font-weight: bold;
+            background-color: #c33131;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: .9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title bb rp" style="display: flex; flex-direction: row; justify-content: space-between;">
+            <p>Gem Classification of Shape and Color</p>
+            <a href="javascript:void(0)" class="btn" onclick="clearAll()">Clear</a>
+        </div>
+        <div class="wrapper">
+            <div class="left-col">
+                <h1 class="title mb-1" style="padding-top: 13px;">Original Image</h1>
+                <div id="drop-zone" class="mb-2">
+                    <p>Drag image to upload</p>
+                    <input type="file" id="file-input" accept="image/*" style="display: none;">
+                </div>
+                <img id="preview" class="preview-image mb-2" style="display: none;">
+            </div>
+            <div class="right-col" style="padding-top: 15px;">
+                <div style="flex-grow: 1;">
+                    <div class="title mb-1">Predict result</div>
+                    <div id="msg" style="color: #c33131; padding: 15px 0; display: none;"></div>
+                                       <div
+                        style="display: flex; flex-direction: row; justify-content: start; margin-bottom: 15px; font-weight: bold;">
+                        <span style="margin-right: 5px;">Identification: </span>
+                        <span id="identification"></span>
+                    </div>
+                    <div
+                        style="display: flex; flex-direction: row; justify-content: start; margin-bottom: 15px; font-weight: bold;">
+                        <span style="margin-right: 5px;">Shape: </span>
+                        <span id="shape"></span>
+                    </div>
+                    <div style="display: flex; flex-direction: row; justify-content: start; font-weight: bold;">
+                        <span style="margin-right: 5px;">Color: </span>
+                        <span id="color"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div style="padding: 15px 25px 15px 10px; text-align: right;">Current Model: <span id="shape_model_name"
+                style="font-weight: bold;"></span> + <span style="font-weight: bold;" id="color_model_name"></span> + <span style="font-weight: bold;" id="identification_model_name"></span>
+        </div>
+    </div>
+
+    <script>
+        fetch('/model_info')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('shape_model_name').textContent = data.shape;
+                document.getElementById('color_model_name').textContent = data.color;
+                document.getElementById('identification_model_name').textContent = data.identification
+            })
+            .catch(error => {
+                console.error('Failed to load models:', error);
+            });
+        function clearAll() {
+            var preview = document.getElementById('preview');
+            preview.src = null
+            preview.style.display = 'none';
+            var dropfile = document.getElementById('drop-zone');
+            dropfile.style.display = 'flex';
+            var preview_2 = document.getElementById('preview-2');
+            preview_2.src = null;
+            preview_2.style.display = 'none';
+            var shapeDiv = document.getElementById('shape');
+            var colorDiv = document.getElementById('color');
+            var identificationDiv = document.getElementById("identification")
+            shapeDiv.innerHTML = null
+            colorDiv.innerHTML = null
+            identificationDiv.innerHTML = null
+        }
+        function handleFile(file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var preview = document.getElementById('preview');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                var dropfile = document.getElementById('drop-zone');
+                dropfile.style.display = 'none';
+            }
+            reader.readAsDataURL(file);
+
+            var formData = new FormData();
+            formData.append('image', file);
+
+            fetch('/', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    var msg = document.getElementById('msg');
+                    if (data.error) {
+                        msg.style.display = 'block'
+                        msg.innerHTML = 'Error: ' + data.error;
+                    } else {
+                        var shapeDiv = document.getElementById('shape');
+                        var colorDiv = document.getElementById('color');
+                        var identificationDiv = document.getElementById('identification')
+                        shapeDiv.innerHTML = data.shape
+                        colorDiv.innerHTML = data.color
+                        identificationDiv.innerHTML = data.identification
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        document.getElementById('file-input').addEventListener('change', function (event) {
+            handleFile(event.target.files[0]);
+        });
+
+        var dropZone = document.getElementById('drop-zone');
+
+        dropZone.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.remove('dragover');
+            var file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleFile(file);
+            }
+        });
+    </script>
+</body>
+
+</html>
