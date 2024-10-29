@@ -32,6 +32,9 @@ Powered by [Samueli924](https://github.com/Samueli924)
 5. **Use the AutoGemUI**  
    Use browser [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
+6. **Upload Colored Gemstone Image**  
+    **The gemstone must be in the .shape file within the downloaded models.7z file**. The image uploaded should be 1:1 ratio, best to be 200x200 pixels.
+
 ## 💡 Examples of Prediction result
 ![Snipaste_2024-10-29_11-49-55](https://github.com/user-attachments/assets/c80a2713-2fe1-4898-862a-b459e04224cb)
 ![Snipaste_2024-10-29_11-49-43](https://github.com/user-attachments/assets/f8807446-bda9-490c-a453-a53924ed6677)
