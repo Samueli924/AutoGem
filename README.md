@@ -36,8 +36,10 @@ Powered by [Samueli924](https://github.com/Samueli924)
     **The gemstone must be in the .shape file within the downloaded models.7z file**. The image uploaded should be 1:1 ratio, best to be 200x200 pixels.
 
 ## 💡 Examples of Prediction result
-![Snipaste_2024-10-29_11-49-55](https://github.com/user-attachments/assets/c80a2713-2fe1-4898-862a-b459e04224cb)
-![Snipaste_2024-10-29_11-49-43](https://github.com/user-attachments/assets/f8807446-bda9-490c-a453-a53924ed6677)
-![Snipaste_2024-10-29_11-49-33](https://github.com/user-attachments/assets/8d8667d7-b37c-43e0-8922-a85e924d519e)
-![Snipaste_2024-10-29_11-49-21](https://github.com/user-attachments/assets/b39764aa-c60e-4478-aabe-918fbaa338e1)
-![Snipaste_2024-10-29_11-50-20](https://github.com/user-attachments/assets/658b6884-5d70-4702-8644-06f025b0aa23)
+
+![380965015-8d8667d7-b37c-43e0-8922-a85e924d519e](https://github.com/user-attachments/assets/229090d3-eea3-4987-b209-b9b749afa2d8)
+![380965026-c80a2713-2fe1-4898-862a-b459e04224cb](https://github.com/user-attachments/assets/a523890e-36e2-4d2c-b411-b175f7b522db)
+![380965008-b39764aa-c60e-4478-aabe-918fbaa338e1](https://github.com/user-attachments/assets/94b620ee-7c2e-459d-acdb-e1bdd636eec4)
+![380964992-658b6884-5d70-4702-8644-06f025b0aa23](https://github.com/user-attachments/assets/01e874c6-d396-4438-adb8-520475a0f5ab)
+![380965021-f8807446-bda9-490c-a453-a53924ed6677](https://github.com/user-attachments/assets/465914d6-2498-4eb7-8808-622bfedf4687)
+
